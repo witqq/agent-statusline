@@ -27,6 +27,7 @@ class Snapshot:
     context_used: float | None = None
     limits: tuple[Limit, ...] = ()
     instance: str = "main"
+    available_resets: int | None = None
 
 
 Segment = Callable[[Snapshot], str]
@@ -89,6 +90,8 @@ def limits(state: Snapshot) -> str:
         if window.resets_at is not None:
             part += f"({until_reset(window.resets_at)})"
         parts.append(part)
+    if state.available_resets is not None:
+        parts.append(f"resets:{state.available_resets}")
     return " ".join(parts)
 
 

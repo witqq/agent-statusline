@@ -7,6 +7,7 @@ from pathlib import Path
 
 from core import Limit, Snapshot
 from layout import render
+from reset_credits import available_resets
 
 
 URI = "ui://claude-footer/footer"
@@ -62,6 +63,7 @@ def snapshot(state):
         model=model_name(model), effort=EFFORT.get(effort, effort),
         context_used=(usage.get("context") or {}).get("used_percentage"),
         limits=tuple(rate_limits(state.get("account") or {})),
+        available_resets=available_resets(),
     )
 
 
